@@ -1,7 +1,7 @@
 <template>
   <v-row class="pa-10" justify="center">
     <v-col
-      v-for="(item, id) in paginatedItems"
+      v-for="(item, id) in paginatedProducts"
       :key="id"
       class="d-flex justify-center"
     >
@@ -45,21 +45,21 @@ import AddToBasket from "@/components/AddToBasket.vue";
 const store = useMyStore()
 
 // onMounted(() => {
-//   console.log(store.items)
+//   console.log(store.products)
 // })
 
-const itemsPerPage = 8
+const productsPerPage = 8
 const currentPage = ref(1)
 
 const pageCount = computed(() =>
-  Math.ceil(store.filteredItems.length / itemsPerPage)
+  Math.ceil(store.filteredProducts.length / productsPerPage)
 )
 
-const paginatedItems = computed (() => {
-    const start = (currentPage.value - 1) * itemsPerPage
-    const end = start + itemsPerPage
+const paginatedProducts = computed (() => {
+    const start = (currentPage.value - 1) * productsPerPage
+    const end = start + productsPerPage
 
-    return store.filteredItems.slice(start, end)
+    return store.filteredProducts.slice(start, end)
   }
 )
 

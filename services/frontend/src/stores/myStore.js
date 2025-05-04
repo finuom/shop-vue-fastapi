@@ -4,11 +4,14 @@ import axios from 'axios'
 export const useMyStore = defineStore('myStore', {
   state: () => ({
     basket: [],
-    items: [],
+    products: [],
     loading: false,
     error: null,
     search: '',
-    selectedCategories: []
+    selectedCategories: [],
+    users: [
+      { id: 1, user: 'admin', password: 123 }
+    ],
   }),
 
   getters: {
@@ -16,17 +19,17 @@ export const useMyStore = defineStore('myStore', {
       return state.basket.reduce((sum, item) => sum + item.price * item.qtd, 0)
     },
     basketCount: (state) => {
-      let n_items = 0
+      let n_products = 0
       for (let i = 0; i < state.basket.length; i++) {
-        n_items += state.basket[i].qtd
+        n_products += state.basket[i].qtd
       }
-      return n_items
+      return n_products
     },
-    filteredItems: (state) => {
-      if (!Array.isArray(state.items)) {
+    filteredProducts: (state) => {
+      if (!Array.isArray(state.products)) {
         return []
       }
-      return state.items.filter(item => {
+      return state.products.filter(item => {
         const matchesCategory = state.selectedCategories.length === 0 ||
                                 state.selectedCategories.includes('todas') ||
                                 state.selectedCategories.includes(item.category.toLowerCase())
@@ -41,7 +44,7 @@ export const useMyStore = defineStore('myStore', {
   actions: {
     addToBasket(item, qtd) {
       // console.log('id:', id)
-      // const item = this.items.find(item => item.id === id)
+      // const item = this.products.find(item => item.id === id)
       // if (!item) return
 
       const alreadyInbasket = this.basket.some(basketItem => basketItem.title === item.title)
@@ -52,17 +55,15 @@ export const useMyStore = defineStore('myStore', {
     setSearch(query) {
       this.search = query
     },
-    async fetchItems() {
+    async fetchProducts() {
       this.loading = true
       this.error = null
       try {
-        const response = await axios.get('http://127.0.0.1:8500/items/') // use your actual endpoint
+        const response = await axios.get('http://127.0.0.1:8500/products/') // use your actual endpoint
         // For postgres
-        this.items = response.data
-        // For mySql
-        this.items = response.data.items
+        this.products = response.data
       } catch (err) {
-        this.error = 'Failed to fetch items'
+        this.error = 'Failed to fetch products'
         console.error(err)
       } finally {
         this.loading = false

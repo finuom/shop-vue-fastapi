@@ -56,7 +56,12 @@
         <v-btn icon @click="goToCatalog">
           <v-icon>mdi-store</v-icon>
         </v-btn>
+
+        <v-btn icon @click="goToAccount">
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
       </div>
+
     </v-app-bar>
     <v-main>
       <router-view />
@@ -92,7 +97,11 @@
     router.push('/cesta')
   }
 
+  function goToAccount() {
+    router.push('/account')
+  }
+
   onMounted(() => {
-    store.fetchItems()
+    store.fetchProducts()
   })
 </script>
