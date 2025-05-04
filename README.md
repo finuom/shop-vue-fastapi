@@ -1,12 +1,11 @@
 # How to run:
-### Backend
+### Backend (services/backend_simple)
 1) Install requirements
 `python -m pip install -r requirements.txt`
 2) Run server
 `python main.py`
 
-### Go inside "services/frontend":
-### Frontend
+### Frontend (services/frontend)
 1) Install npm (if you don't have yet)
 `sudo apt install npm`
 2) Install packages
