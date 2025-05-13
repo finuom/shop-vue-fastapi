@@ -1,9 +1,9 @@
 # How to run:
-### Backend (services/backend_simple)
+### Backend (services/backend)
 1) Install requirements
 `python -m pip install -r requirements.txt`
 2) Run server
-`python main.py`
+`uvicorn app.main:app --reload --port 8500`
 
 ### Frontend (services/frontend)
 1) Install npm (if you don't have yet)
